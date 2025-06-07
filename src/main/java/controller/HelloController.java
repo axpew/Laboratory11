@@ -24,7 +24,6 @@ public class HelloController {
 
     @FXML
     public void initialize() {
-        // Inicialización del controlador
         txtMessage.setText("Laboratory No. 11");
     }
 
@@ -45,13 +44,11 @@ public class HelloController {
         this.txtMessage.setText("Laboratory No. 11");
     }
 
-
     @FXML
     public void matrixGraphView(ActionEvent actionEvent) {
-
         try {
             load("matrixGraph-view.fxml");
-            txtMessage.setText("Cargando Matrix Graph...");
+            txtMessage.setText("Matriz de Adyacencia - Visualización");
         } catch (Exception e) {
             showCompactError("Error", "Error cargando Matrix Graph: " + e.getMessage());
         }
@@ -59,35 +56,57 @@ public class HelloController {
 
     @FXML
     public void listGraph(ActionEvent actionEvent) {
-
         try {
-            load("matrixGraph-view.fxml");
-            txtMessage.setText("Cargando Matrix Graph...");
+            load("listGraph-view.fxml");
+            txtMessage.setText("Lista de Adyacencia - Visualización");
         } catch (Exception e) {
-            showCompactError("Error", "Error cargando Matrix Graph: " + e.getMessage());
+            showCompactError("Error", "Error cargando List Graph: " + e.getMessage());
         }
     }
 
     @FXML
     public void linkedGraph(ActionEvent actionEvent) {
-
         try {
-            load("matrixGraph-view.fxml");
-            txtMessage.setText("Cargando Matrix Graph...");
+            load("linkedGraph-view.fxml");
+            txtMessage.setText("Lista Enlazada - Visualización");
         } catch (Exception e) {
-            showCompactError("Error", "Error cargando Matrix Graph: " + e.getMessage());
+            showCompactError("Error", "Error cargando Linked Graph: " + e.getMessage());
         }
     }
 
-
-    @Deprecated
-    public void Exit(ActionEvent actionEvent) {
-        System.exit(0);
+    @FXML
+    public void matrixOperations(ActionEvent actionEvent) {
+        try {
+            load("matrixOperations-view.fxml");
+            txtMessage.setText("Operaciones con Matriz de Adyacencia");
+        } catch (Exception e) {
+            showCompactError("Error", "Error cargando Matrix Operations: " + e.getMessage());
+        }
     }
 
-    @Deprecated
-    public void loadingOnMousePressed(Event event)  {
-        this.txtMessage.setText("Estamos cargando tu vista...");
+    @FXML
+    public void listOperations(ActionEvent actionEvent) {
+        try {
+            load("listOperations-view.fxml");
+            txtMessage.setText("Operaciones con Lista de Adyacencia");
+        } catch (Exception e) {
+            showCompactError("Error", "Error cargando List Operations: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void linkedOperations(ActionEvent actionEvent) {
+        try {
+            load("linkedOperations-view.fxml");
+            txtMessage.setText("Operaciones con Lista Enlazada");
+        } catch (Exception e) {
+            showCompactError("Error", "Error cargando Linked Operations: " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void exit(ActionEvent actionEvent) {
+        System.exit(0);
     }
 
     private void showCompactError(String title, String message) {
@@ -95,29 +114,9 @@ public class HelloController {
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
-
-        // Configurar tamaño compacto
         alert.getDialogPane().setPrefSize(400, 250);
         alert.getDialogPane().setMaxWidth(400);
         alert.getDialogPane().setMaxHeight(250);
-
         alert.showAndWait();
-    }
-
-
-    @FXML
-    public void exit(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void linkedOperations(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void listOperations(ActionEvent actionEvent) {
-    }
-
-    @FXML
-    public void matrixOperations(ActionEvent actionEvent) {
     }
 }
