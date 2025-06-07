@@ -74,8 +74,8 @@ public class AdjacencyListGraph implements Graph {
     public void addEdge(Object a, Object b) throws GraphException, ListException {
         if(!containsVertex(a)||!containsVertex(b))
             throw new GraphException("Cannot add edge between vertexes ["+a+"] y ["+b+"]");
-       vertexList[indexOf(a)].edgesList.add(new EdgeWeight(b, null));
-       //grafo no dirigido
+        vertexList[indexOf(a)].edgesList.add(new EdgeWeight(b, null));
+        //grafo no dirigido
         vertexList[indexOf(b)].edgesList.add(new EdgeWeight(a, null));
 
     }
@@ -216,9 +216,73 @@ public class AdjacencyListGraph implements Graph {
             if(!vertexList[index].edgesList.isEmpty()
                     && vertexList[i].edgesList.contains(new EdgeWeight(vertexData, null))
                     && !vertexList[i].isVisited())
-                    return i;//retorna la posicion del vertice adyacente no visitado
+                return i;//retorna la posicion del vertice adyacente no visitado
         }//for i
         return -1;
+    }
+
+    /**
+     * Conecta todos los vértices pares entre sí y todos los vértices impares entre sí
+     * Para los pesos utiliza números aleatorios entre 1 y 40
+     */
+    public void connectEvenAndOddVertices() throws GraphException, ListException {
+        // Conectar todos los vértices pares entre sí
+        for (int i = 0; i < counter; i++) {
+            Object dataI = vertexList[i].data;
+            if (isEvenNumber(dataI)) {
+                for (int j = i + 1; j < counter; j++) {
+                    Object dataJ = vertexList[j].data;
+                    if (isEvenNumber(dataJ)) {
+                        // Conectar solo si no existe la arista
+                        if (!containsEdge(dataI, dataJ)) {
+                            int weight = util.Utility.random(40) + 1; // Entre 1 y 40
+                            addEdgeWeight(dataI, dataJ, weight);
+                        }
+                    }
+                }
+            }
+        }
+
+        // Conectar todos los vértices impares entre sí
+        for (int i = 0; i < counter; i++) {
+            Object dataI = vertexList[i].data;
+            if (isOddNumber(dataI)) {
+                for (int j = i + 1; j < counter; j++) {
+                    Object dataJ = vertexList[j].data;
+                    if (isOddNumber(dataJ)) {
+                        // Conectar solo si no existe la arista
+                        if (!containsEdge(dataI, dataJ)) {
+                            int weight = util.Utility.random(40) + 1; // Entre 1 y 40
+                            addEdgeWeight(dataI, dataJ, weight);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Verifica si un objeto representa un número par
+     */
+    private boolean isEvenNumber(Object data) {
+        try {
+            int number = Integer.parseInt(data.toString());
+            return number % 2 == 0;
+        } catch (NumberFormatException e) {
+            return false; // Si no es un número, no es par
+        }
+    }
+
+    /**
+     * Verifica si un objeto representa un número impar
+     */
+    private boolean isOddNumber(Object data) {
+        try {
+            int number = Integer.parseInt(data.toString());
+            return number % 2 == 1;
+        } catch (NumberFormatException e) {
+            return false; // Si no es un número, no es impar
+        }
     }
 
     @Override
